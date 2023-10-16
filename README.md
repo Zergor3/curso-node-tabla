@@ -9,3 +9,7 @@ Options:
 -l, --listar   Muestra la tabla en consola                [boolean] [default: false]
 -h, --hasta    Este es el numero hasta donde quieres la tabla [number] [default: 10]
 ```
+
+# WebServer + RestServer
+
+Recuerden que deben ejecutar ```npm install``` para reconstruir los modulos de Node. 
