@@ -40,13 +40,13 @@ app.get('/elements', (req, res) => {
     });
 });
 
-app.get('/hola-mundo', (req, res) => {
-    res.send('Hola mundo en su respectiva ruta');
-});
+// app.get('/hola-mundo', (req, res) => {
+//     res.send('Hola mundo en su respectiva ruta');
+// });
 
-app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/public/back/404.html');
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(__dirname + '/public/back/404.html');
+// });
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
