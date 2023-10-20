@@ -1,10 +1,9 @@
 const {response, request} = require('express');
 const bcryptjs = require('bcryptjs');
-const Usuario = require('../models/usuario');
+const {Usuario} = require('../models');
 
 
 const usuariosGet = async (req = request, res = response) => {
-    // const {q, nombre = 'No name', apikey} = req.query;
     const {limit = 5, desde = 0} = req.query;
     const query = {estado: true};
     const [total, usuarios] = await Promise.all([
@@ -29,7 +28,6 @@ const usuariosPut = async (req, res) => {
     }
 
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
-    console.log(usuario);
     res.json(usuario);
 }
 
