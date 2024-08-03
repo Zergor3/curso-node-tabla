@@ -48,6 +48,7 @@ function handleCredentialResponse(response) {
         .catch(console.warn);
 }
 
+//Logout
 const button = document.getElementById("google_signout");
 button.onclick = () => {
     google.accounts.id.disableAutoSelect();

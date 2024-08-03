@@ -24,9 +24,7 @@ const productoGetById = async (req, res = response) => {
     const producto = await Producto.findById(id)
         .populate('usuario', 'nombre')
         .populate('categoria', 'nombre');
-    res.json({
-        producto
-    });
+    res.json(producto);
 }
 
 const productosPut = async (req, res) => {
@@ -43,7 +41,7 @@ const productosPut = async (req, res) => {
 
 const productosPost = async (req, res = Response) => {
     const {estado, usuario, ...body} = req.body;
-    const productoDB = await Producto.findOne({nombre: body.nombre});
+    const productoDB = await Producto.findOne({nombre: body.nombre.toUpperCase()});
     if (productoDB) {
         return res.status(400).json({
             msg: `El producto ${productoDB.nombre} ya existe`

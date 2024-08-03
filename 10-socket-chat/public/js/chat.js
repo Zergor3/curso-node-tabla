@@ -7,12 +7,14 @@ const btnSalir = document.querySelector('#btnSalir');
 let usuario = null;
 let socket = null;
 
+//Validamos el token para la sala de chat
 const validarJWT = async () => {
     const token = localStorage.getItem('token') || '';
     if (token.length <= 10) {
         window.location = 'index.html';
         throw new Error('No hay token en el servidor');
     }
+    //Se renueva el token
     const resp = await fetch('http://localhost:8080/api/auth', {
         headers: {'x-token': token}
     });
@@ -25,6 +27,7 @@ const validarJWT = async () => {
 }
 
 const conectarSocket = async () => {
+    //Comunicamos el token mediante el socket
     socket = io({
         'extraHeaders': {
             'x-token': localStorage.getItem('token')
@@ -78,6 +81,7 @@ const dibujarMensajes = (mensajes = []) => {
     ulMensajes.innerHTML = mensajesHtml;
 }
 
+//Enter para emitir envio de mensaje
 txtMensaje.addEventListener('keyup', ({keyCode}) => {
     const mensaje = txtMensaje.value;
     const uid = txtUid.value;
@@ -87,9 +91,20 @@ txtMensaje.addEventListener('keyup', ({keyCode}) => {
     txtMensaje.value = '';
 });
 
+btnSalir.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    if (localStorage.getItem('email')) {
+        google.accounts.id.disableAutoSelect();
+        google.accounts.id.revoke(localStorage.getItem('email'), done => {
+            localStorage.clear();
+            location.reload();
+        });
+    }
+    window.location = 'index.html';
+});
+
 const main = async () => {
     await validarJWT();
 }
 
 main();
-
